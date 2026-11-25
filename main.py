@@ -1,11 +1,22 @@
-import os
+"""One-line office joke entry writer."""
 
-JOKE = "I invited my burnout to a recurring meeting and it declined \u2014 already fully booked."
+from pathlib import Path
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(JOKE)
+_PARTS = (
+    "I invited my burnout to a recurring meeting and it declined",
+    "\u2014",
+    "already fully booked.",
+)
+
+
+def _compose() -> str:
+    return " ".join(_PARTS)
+
+
+def main() -> None:
+    out = Path("/output/entry.txt")
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(_compose(), encoding="utf-8")
 
 if __name__ == "__main__":
     main()
